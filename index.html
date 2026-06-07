@@ -475,6 +475,125 @@ footer strong{color:var(--navy);}
 .no-results{text-align:center;padding:2.5rem 1rem;color:var(--muted);font-size:.9rem;}
 .no-results .nr-icon{font-size:2.5rem;display:block;margin-bottom:.5rem;}
 
+/* ─ BEST SELLER BADGE ─ */
+.best-seller-badge{
+  position:absolute;top:8px;left:8px;
+  background:linear-gradient(135deg,#FF6B35,#FF3D00);
+  color:#fff;font-size:.62rem;font-weight:800;
+  padding:.22rem .55rem;border-radius:20px;
+  letter-spacing:.06em;text-transform:uppercase;
+  box-shadow:0 2px 8px rgba(255,61,0,.4);
+  z-index:2;animation:pulseBadge 2s ease-in-out infinite;
+}
+@keyframes pulseBadge{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+
+/* ─ CLEAR CART BUTTON ─ */
+.clear-cart-btn{
+  display:none;width:100%;padding:.6rem;
+  background:rgba(192,24,26,.08);border:1.5px dashed var(--red);
+  color:var(--red);border-radius:8px;font-size:.82rem;font-weight:700;
+  cursor:pointer;margin-top:.6rem;letter-spacing:.04em;
+  transition:all .2s;-webkit-tap-highlight-color:transparent;
+}
+.clear-cart-btn:hover{background:rgba(192,24,26,.15);}
+.clear-cart-btn.visible{display:block;}
+
+/* ─ DELIVERY ESTIMATE ─ */
+.delivery-est{
+  display:flex;align-items:center;gap:.5rem;
+  background:rgba(13,124,61,.12);border:1px solid rgba(13,124,61,.3);
+  border-radius:8px;padding:.55rem .8rem;margin-top:.6rem;
+  font-size:.82rem;font-weight:700;color:var(--green);
+}
+.delivery-est .d-icon{font-size:1rem;}
+
+/* ─ ORDER HISTORY MODAL ─ */
+.hist-modal-ov{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);
+  z-index:600;display:flex;align-items:flex-end;justify-content:center;
+  padding:0;backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.hist-modal-ov.open{opacity:1;pointer-events:all;}
+.hist-modal-box{
+  background:#fff;border-radius:var(--r) var(--r) 0 0;
+  width:100%;max-width:560px;max-height:80vh;
+  overflow-y:auto;padding:1.4rem;
+  box-shadow:0 -6px 40px rgba(0,0,0,.25);
+  transform:translateY(60px);transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.hist-modal-ov.open .hist-modal-box{transform:translateY(0);}
+.hist-modal-title{
+  font-family:'Bebas Neue',sans-serif;font-size:1.2rem;
+  letter-spacing:.08em;color:var(--navy);margin-bottom:1rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.hist-item{
+  border:1px solid var(--border);border-radius:9px;
+  padding:.8rem .9rem;margin-bottom:.7rem;
+  background:#FAFCFF;
+}
+.hist-item-head{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.78rem;font-weight:700;color:var(--muted);margin-bottom:.4rem;
+}
+.hist-item-head .h-date{color:var(--navy);font-size:.8rem;}
+.hist-item-products{font-size:.85rem;font-weight:600;color:var(--text);line-height:1.6;}
+.hist-reorder-btn{
+  margin-top:.5rem;padding:.3rem .8rem;
+  background:var(--navy);color:#fff;border:none;border-radius:6px;
+  font-size:.72rem;font-weight:700;cursor:pointer;letter-spacing:.04em;
+  -webkit-tap-highlight-color:transparent;
+}
+.hist-reorder-btn:hover{background:var(--navy2);}
+.hist-empty{text-align:center;padding:2rem;color:var(--muted);font-size:.9rem;}
+.hist-fab{
+  position:fixed;bottom:1.4rem;left:1.2rem;
+  width:58px;height:58px;border-radius:50%;
+  background:linear-gradient(135deg,var(--saff2),var(--saffron));
+  color:var(--navy3);border:none;cursor:pointer;
+  font-size:1.4rem;
+  box-shadow:0 4px 20px rgba(245,166,35,.5);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s;z-index:50;
+  -webkit-tap-highlight-color:transparent;
+  border:2px solid rgba(255,255,255,.5);
+}
+.hist-fab:hover{transform:scale(1.1);}
+.hist-fab-badge{
+  position:absolute;top:-4px;right:-4px;
+  background:var(--red);color:#fff;
+  width:20px;height:20px;border-radius:50%;
+  font-size:.62rem;font-weight:800;
+  display:none;align-items:center;justify-content:center;
+  border:2px solid #fff;
+}
+.hist-fab-badge.show{display:flex;}
+
+/* ─ WHATSAPP QUICK CONTACT ─ */
+.wa-strip{
+  background:linear-gradient(135deg,#25D366,#1ebe57);
+  border-radius:var(--r);padding:.9rem 1.1rem;
+  display:flex;align-items:center;gap:.8rem;
+  margin-bottom:1rem;cursor:pointer;
+  box-shadow:0 3px 16px rgba(37,211,102,.3);
+  transition:transform .2s,box-shadow .2s;
+  text-decoration:none;
+}
+.wa-strip:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(37,211,102,.4);}
+.wa-strip .wa-icon{font-size:1.8rem;flex-shrink:0;}
+.wa-strip .wa-text strong{display:block;color:#fff;font-size:.95rem;font-weight:700;}
+.wa-strip .wa-text span{color:rgba(255,255,255,.82);font-size:.76rem;}
+
+/* ─ MIN ORDER REMINDER ─ */
+.min-order-tip{
+  background:rgba(245,166,35,.1);border:1.5px solid rgba(245,166,35,.4);
+  border-radius:8px;padding:.55rem .8rem;
+  font-size:.78rem;font-weight:700;color:var(--saff2);
+  margin-top:.5rem;display:none;
+}
+.min-order-tip.show{display:block;}
+
 /* ─ ENTRANCE ANIMATION ─ */
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 .product-card{animation:fadeUp .3s ease both;}
@@ -585,6 +704,14 @@ footer strong{color:var(--navy);}
 
   <!-- PRODUCTS -->
   <div class="sec">🍪 Cremica Products</div>
+  <!-- WA Quick Contact -->
+  <a class="wa-strip" href="tel:7631499444">
+    <span class="wa-icon">📞</span>
+    <div class="wa-text">
+      <strong>Seedha Baat Karein — 7631499444</strong>
+      <span>Order mein help chahiye? Call ya WhatsApp karein</span>
+    </div>
+  </a>
   <div class="search-wrap">
     <div class="search-input-wrap">
       <span class="search-icon">🔍</span>
@@ -636,7 +763,12 @@ footer strong{color:var(--navy);}
       <span>Kul Items</span>
       <span id="summaryTotal">0 items selected</span>
     </div>
+    <div class="delivery-est" id="deliveryEst" style="display:none;">
+      <span class="d-icon">🚚</span>
+      <span id="deliveryEstText">Expected Delivery: Aaj ya Kal</span>
+    </div>
   </div>
+  <button class="clear-cart-btn" id="clearCartBtn" onclick="clearCart()">🗑️ Cart Saaf Karein (Sab Hatao)</button>
 
   <!-- SUBMIT -->
   <button class="submit-btn" id="submitBtn" onclick="placeOrder()">
@@ -644,11 +776,15 @@ footer strong{color:var(--navy);}
     WhatsApp Pe Order Bhejein
   </button>
 
+  <!-- MIN ORDER TIP -->
+  <div class="min-order-tip" id="minOrderTip">⚠️ Sirf Packet select kiye hain — kum se kum 1 Carton zaroor chuniye!</div>
+
 </main>
 
 <footer>
   <strong>TARA ENTERPRISES</strong> — Cremica Authorized Wholesale Dealer<br>
-  Sare orders WhatsApp ke zariye process hote hain 🙏
+  Sare orders WhatsApp ke zariye process hote hain 🙏<br>
+  <span style="font-size:.76rem;color:var(--muted);margin-top:.3rem;display:inline-block;">📍 Bihar &nbsp;|&nbsp; 📞 7631499444 &nbsp;|&nbsp; ⏰ Mon–Sat 9AM–7PM</span>
 </footer>
 
 <!-- FLOATING CART -->
@@ -656,6 +792,23 @@ footer strong{color:var(--navy);}
   🛒
   <span class="fab-badge" id="fabBadge">0</span>
 </button>
+
+<!-- HISTORY FAB -->
+<button class="hist-fab" onclick="openHistory()" title="Order History" aria-label="Order history">
+  📋
+  <span class="hist-fab-badge" id="histBadge"></span>
+</button>
+
+<!-- ORDER HISTORY MODAL -->
+<div class="hist-modal-ov" id="histModal">
+  <div class="hist-modal-box">
+    <div class="hist-modal-title">
+      <span>📋 Order History</span>
+      <button class="modal-close" onclick="closeHistory()" aria-label="Close">✕</button>
+    </div>
+    <div id="historyList"></div>
+  </div>
+</div>
 
 <!-- ADMIN BTN -->
 <button class="admin-icon-btn" id="adminIconBtn" onclick="toggleAdmin()" title="Admin Login" aria-label="Admin">🔐</button>
@@ -692,18 +845,18 @@ const ADMIN_PASSWORD  = 'tara@7631';
 ══════════════════════════════════════════ */
 const PRODUCTS = [
   // BISCUITS
-  {id:'b1',  name:'Butter Cookies',    sub:'Cremica Butter Cookies',  emoji:'🍪', cat:'Biscuits', cP:'₹480', pP:'₹20'},
-  {id:'b2',  name:'Marie Light',       sub:'Cremica Marie Biscuit',   emoji:'🫓', cat:'Biscuits', cP:'₹360', pP:'₹15'},
+  {id:'b1',  name:'Butter Cookies',    sub:'Cremica Butter Cookies',  emoji:'🍪', cat:'Biscuits', cP:'₹480', pP:'₹20', bestSeller:true},
+  {id:'b2',  name:'Marie Light',       sub:'Cremica Marie Biscuit',   emoji:'🫓', cat:'Biscuits', cP:'₹360', pP:'₹15', bestSeller:true},
   {id:'b3',  name:'Glucose Biscuit',   sub:'Cremica Glucose',         emoji:'🟡', cat:'Biscuits', cP:'₹300', pP:'₹10'},
-  {id:'b4',  name:'Bourbon Cream',     sub:'Cremica Bourbon',         emoji:'🍫', cat:'Biscuits', cP:'₹420', pP:'₹20'},
+  {id:'b4',  name:'Bourbon Cream',     sub:'Cremica Bourbon',         emoji:'🍫', cat:'Biscuits', cP:'₹420', pP:'₹20', bestSeller:true},
   {id:'b5',  name:'Digestive Biscuit', sub:'Cremica Digestive',       emoji:'🌾', cat:'Biscuits', cP:'₹480', pP:'₹25'},
   {id:'b6',  name:'Coconut Crunch',    sub:'Cremica Coconut',         emoji:'🥥', cat:'Biscuits', cP:'₹360', pP:'₹15'},
   {id:'b7',  name:'Orange Cream',      sub:'Cremica Orange Cream',    emoji:'🍊', cat:'Biscuits', cP:'₹400', pP:'₹20'},
-  {id:'b8',  name:'Choco Fills',       sub:'Cremica Choco Fills',     emoji:'🍫', cat:'Biscuits', cP:'₹440', pP:'₹20'},
+  {id:'b8',  name:'Choco Fills',       sub:'Cremica Choco Fills',     emoji:'🍫', cat:'Biscuits', cP:'₹440', pP:'₹20', bestSeller:true},
   {id:'b9',  name:'Milk Shakti',       sub:'Cremica Milk Shakti',     emoji:'🥛', cat:'Biscuits', cP:'₹320', pP:'₹10'},
   {id:'b10', name:'Jeera Biscuit',     sub:'Cremica Jeera',           emoji:'🫙', cat:'Biscuits', cP:'₹360', pP:'₹15'},
   // RUSK
-  {id:'t1',  name:'Milk Rusk',         sub:'Cremica Milk Rusk',       emoji:'🍞', cat:'Rusk',     cP:'₹400', pP:'₹20'},
+  {id:'t1',  name:'Milk Rusk',         sub:'Cremica Milk Rusk',       emoji:'🍞', cat:'Rusk',     cP:'₹400', pP:'₹20', bestSeller:true},
 ];
 const CATEGORIES = ['Sabhi', 'Biscuits', 'Rusk'];
 
@@ -725,8 +878,12 @@ function init() {
   loadImages();
   buildChips();
   renderProducts();
+  updateHistBadge();
   document.getElementById('adminModal').addEventListener('click', function(e){
     if (e.target === this) closeAdminModal();
+  });
+  document.getElementById('histModal').addEventListener('click', function(e){
+    if (e.target === this) closeHistory();
   });
 }
 
@@ -793,9 +950,12 @@ function renderProducts() {
       ? `<div class="added-badge">✅ ${q.c>0?q.c+' Carton':''}${q.c>0&&q.p>0?' + ':''}${q.p>0?q.p+' Packet':''} added</div>`
       : '';
 
+    const bsBadge = p.bestSeller ? `<div class="best-seller-badge">🔥 Best Seller</div>` : '';
+
     return `<div class="product-card${hasQ?' active':''}" id="card-${p.id}" style="animation-delay:${i*0.035}s">
   <div class="card-stripe"></div>
   <div class="prod-img-wrap">
+    ${bsBadge}
     ${img}
     <button class="admin-upload-btn" onclick="startImgUpload('${p.id}')">📷 Badlein</button>
   </div>
@@ -873,6 +1033,105 @@ function changeQty(id, type, delta) {
 }
 
 /* ══════════════════════════════════════════
+   CLEAR CART
+══════════════════════════════════════════ */
+function clearCart() {
+  if (!Object.keys(cart).length) return;
+  if (!confirm('Kya aap sure hain? Sab items hat jayenge.')) return;
+  cart = {};
+  renderProducts();
+  updateSummary();
+  toast('🗑️ Cart saaf ho gaya!', 'ok');
+}
+
+/* ══════════════════════════════════════════
+   ORDER HISTORY
+══════════════════════════════════════════ */
+function loadHistory() {
+  try {
+    const s = localStorage.getItem('tara_order_history_v1');
+    return s ? JSON.parse(s) : [];
+  } catch(e) { return []; }
+}
+function saveToHistory(orderData) {
+  const hist = loadHistory();
+  hist.unshift(orderData);
+  const trimmed = hist.slice(0, 10); // Keep last 10 orders
+  try { localStorage.setItem('tara_order_history_v1', JSON.stringify(trimmed)); }
+  catch(e) {}
+  updateHistBadge();
+}
+function updateHistBadge() {
+  const hist = loadHistory();
+  const badge = document.getElementById('histBadge');
+  if (hist.length > 0) {
+    badge.textContent = hist.length;
+    badge.classList.add('show');
+  } else {
+    badge.classList.remove('show');
+  }
+}
+function openHistory() {
+  const hist = loadHistory();
+  const listEl = document.getElementById('historyList');
+  if (!hist.length) {
+    listEl.innerHTML = '<div class="hist-empty">😕 Abhi koi order history nahi hai.<br><small>Pehla order karo!</small></div>';
+  } else {
+    listEl.innerHTML = hist.map((h, i) => `
+      <div class="hist-item">
+        <div class="hist-item-head">
+          <span class="h-date">📅 ${h.date}</span>
+          <span>💳 ${h.payment}</span>
+        </div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:.3rem;">🏬 ${h.shop} — ${h.city}</div>
+        <div class="hist-item-products">${h.items}</div>
+        <button class="hist-reorder-btn" onclick="reorder(${i})">🔁 Dobara Order Karein</button>
+      </div>
+    `).join('');
+  }
+  document.getElementById('histModal').classList.add('open');
+}
+function closeHistory() {
+  document.getElementById('histModal').classList.remove('open');
+}
+function reorder(idx) {
+  const hist = loadHistory();
+  const h = hist[idx];
+  if (!h || !h.cartSnapshot) return;
+  cart = JSON.parse(h.cartSnapshot);
+  // Pre-fill form if saved
+  if (h.shopName)  document.getElementById('shopName').value  = h.shopName;
+  if (h.ownerName) document.getElementById('ownerName').value = h.ownerName;
+  if (h.phone)     document.getElementById('phone').value     = h.phone;
+  if (h.city)      document.getElementById('city').value      = h.city;
+  renderProducts();
+  updateSummary();
+  closeHistory();
+  toast('✅ Pichla order load ho gaya!', 'ok');
+  document.getElementById('productGrid').scrollIntoView({behavior:'smooth'});
+}
+
+/* ══════════════════════════════════════════
+   DELIVERY ESTIMATE
+══════════════════════════════════════════ */
+function getDeliveryEst() {
+  const now = new Date();
+  const hour = now.getHours();
+  const day  = now.getDay(); // 0=Sun
+  let estText = '';
+  if (day === 0) {
+    estText = 'Expected Delivery: Kal (Monday)';
+  } else if (hour < 14) {
+    estText = 'Expected Delivery: Aaj (Same-Day Dispatch) 🚀';
+  } else if (hour < 18) {
+    estText = 'Expected Delivery: Kal tak';
+  } else {
+    estText = 'Expected Delivery: Kal subah tak';
+  }
+  return estText;
+}
+
+/* ══════════════════════════════════════════
    SUMMARY UPDATE
 ══════════════════════════════════════════ */
 function updateSummary() {
@@ -884,8 +1143,34 @@ function updateSummary() {
   if (el1) el1.textContent = n;
   if (el2) el2.textContent = n;
 
-  const summEl  = document.getElementById('summaryItems');
-  const totalEl = document.getElementById('summaryTotal');
+  const summEl    = document.getElementById('summaryItems');
+  const totalEl   = document.getElementById('summaryTotal');
+  const clearBtn  = document.getElementById('clearCartBtn');
+  const delivEl   = document.getElementById('deliveryEst');
+  const delivText = document.getElementById('deliveryEstText');
+  const minTip    = document.getElementById('minOrderTip');
+
+  // Min order warning: only packets, no cartons
+  if (n > 0) {
+    const totalCartons = ids.reduce((s, id) => s + (cart[id].c||0), 0);
+    if (totalCartons === 0 && minTip) minTip.classList.add('show');
+    else if (minTip) minTip.classList.remove('show');
+  } else {
+    if (minTip) minTip.classList.remove('show');
+  }
+
+  // Clear cart button
+  if (clearBtn) clearBtn.classList.toggle('visible', n > 0);
+
+  // Delivery estimate
+  if (delivEl && delivText) {
+    if (n > 0) {
+      delivText.textContent = getDeliveryEst();
+      delivEl.style.display = 'flex';
+    } else {
+      delivEl.style.display = 'none';
+    }
+  }
 
   if (!n) {
     summEl.innerHTML = '<div class="summary-empty">Abhi koi product select nahi hua</div>';
@@ -982,6 +1267,25 @@ function placeOrder() {
   msg += `\n🙏 _TARA ENTERPRISES se order kiya gaya_`;
 
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+  // Save to order history
+  const histEntry = {
+    date: `${dateStr} ${timeStr}`,
+    shop: shopName,
+    shopName, ownerName, phone, city,
+    payment: payment === 'COD' ? '💵 COD' : '📱 UPI',
+    items: Object.keys(cart).map(id => {
+      const p = PRODUCTS.find(x => x.id === id);
+      if (!p) return '';
+      const q = cart[id];
+      const pts = [];
+      if (q.c > 0) pts.push(`${q.c} Carton`);
+      if (q.p > 0) pts.push(`${q.p} Packet`);
+      return `${p.emoji} ${p.name} — ${pts.join(' + ')}`;
+    }).filter(Boolean).join('<br>'),
+    cartSnapshot: JSON.stringify(cart)
+  };
+  saveToHistory(histEntry);
 
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
