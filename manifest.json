@@ -1,14 +1,38 @@
 {
   "name": "TARA ENTERPRISES — Cremica Orders",
   "short_name": "Tara Orders",
-  "description": "Cremica wholesale order lagaiye",
-  "start_url": "/",
+  "description": "Cremica wholesale order lagaiye — Bihar ka No.1 dealer",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#FFF8EE",
-  "theme_color": "#C0181A",
-  "orientation": "portrait",
+  "background_color": "#0F3460",
+  "theme_color": "#0F3460",
+  "orientation": "portrait-primary",
+  "lang": "hi",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
