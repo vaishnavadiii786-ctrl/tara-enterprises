@@ -442,10 +442,8 @@ const PRODUCTS = [
   { id:'b8',  name:'Choco Fills',           sub:'Cremica Choco Fills',     emoji:'🍫', category:'Biscuits',  cartonPrice:'₹440', pktPrice:'₹20' },
   { id:'b9',  name:'Milk Shakti',           sub:'Cremica Milk Shakti',     emoji:'🥛', category:'Biscuits',  cartonPrice:'₹320', pktPrice:'₹10' },
   { id:'b10', name:'Jeera Biscuit',         sub:'Cremica Jeera',           emoji:'🫙', category:'Biscuits',  cartonPrice:'₹360', pktPrice:'₹15' },
-  { id:'s5',  name:'Khatta Meetha Mix',     sub:'Cremica Namkeen',         emoji:'🫘', category:'Chips',     cartonPrice:'₹420', pktPrice:'₹20' },
   // TOAST & RUSKS
   { id:'t1',  name:'Milk Rusk',             sub:'Cremica Milk Rusk',       emoji:'🍞', category:'Rusk',      cartonPrice:'₹400', pktPrice:'₹20' },
-  { id:'t2',  name:'Zeera Toast',           sub:'Cremica Zeera',     emoji:'🟤', category:'Rusk',      cartonPrice:'₹380', pktPrice:'₹20' },
 ];
 
 const CATEGORIES = ['Sabhi', 'Biscuits','Rusk'];
@@ -664,9 +662,9 @@ function placeOrder() {
   msg += `📅 Date: ${dateStr} | ${timeStr}\n\n`;
 
   msg += `🏬 *Dukaan Ki Jankari:*\n`;
-  msg += `• Dukaan: ${YOUR_DUKAAN NAME}\n`;
-  msg += `• Malik: ${YOUR_NAME}\n`;
-  msg += `• Mobile: +91 ${YOUR_NUMBER}\n`;
+  msg += `• Dukaan: ${shopName}\n`;
+  msg += `• Malik: ${ownerName}\n`;
+  msg += `• Mobile: +91 ${phone}\n`;
   msg += `• Sheher: ${city}\n`;
   if (address) msg += `• Pata: ${address}\n`;
   msg += `\n`;
@@ -693,7 +691,7 @@ function placeOrder() {
   if (note) msg += `\n📝 Note: ${note}\n`;
   msg += `\n🙏 _TARA ENTERPRISES se order kiya gaya_`;
 
-  const url = `https://wa.me/${7631499444}?text=${encodeURIComponent(msg)}`;
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 
   // Open WhatsApp
   const btn = document.getElementById('submitBtn');
