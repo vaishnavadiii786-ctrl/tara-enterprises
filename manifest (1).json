@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "description": "TARA ENTERPRISES - Cremica Wholesale Dealer. Apna order yahan lagaiye.",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "TARA ENTERPRISES",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "TARA order",
+  "start_url": "/",
+  "theme_color": "#0F3460",
+  "id": "tara enterprises"
+}
