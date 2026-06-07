@@ -260,6 +260,75 @@ footer strong{color:var(--red2);}
 /* ── EMPTY STATE ── */
 .no-results{text-align:center;padding:2rem;color:var(--muted);font-size:.9rem;}
 
+/* ── PRODUCT IMAGE ── */
+.prod-img-wrap{
+  width:100%;height:130px;border-radius:10px;
+  overflow:hidden;margin-bottom:.7rem;
+  background:linear-gradient(135deg,#FFF0DC,#FFE4C4);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;border:1px solid var(--border);
+}
+.prod-img-wrap img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .3s;
+}
+.prod-img-wrap img:hover{transform:scale(1.05);}
+.prod-img-placeholder{font-size:3.5rem;opacity:.6;}
+.admin-upload-btn{
+  position:absolute;bottom:5px;right:5px;
+  background:rgba(139,0,0,.85);color:#fff;
+  border:none;border-radius:6px;padding:.25rem .5rem;
+  font-size:.7rem;font-weight:700;cursor:pointer;
+  backdrop-filter:blur(4px);transition:background .2s;
+  display:none;
+}
+.admin-mode .admin-upload-btn{display:block;}
+.admin-upload-btn:hover{background:var(--red);}
+
+/* ── ADMIN PANEL ── */
+.admin-bar{
+  background:linear-gradient(135deg,#1A0A00,#3D1500);
+  color:#fff;border-radius:var(--radius);
+  padding:.8rem 1rem;margin-bottom:1rem;
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;
+  box-shadow:0 4px 16px rgba(0,0,0,.3);
+}
+.admin-bar.active{background:linear-gradient(135deg,#0A3D1A,#1A7A2A);}
+.admin-bar-text{flex:1;font-size:.85rem;font-weight:700;}
+.admin-login-btn{
+  background:var(--gold);color:var(--dark);
+  border:none;border-radius:8px;padding:.4rem .9rem;
+  font-family:'Baloo 2',cursive;font-size:.82rem;font-weight:800;
+  cursor:pointer;transition:all .2s;
+}
+.admin-login-btn:hover{background:var(--gold2);color:#fff;}
+
+/* ── ADMIN MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.65);
+  z-index:200;display:flex;align-items:center;justify-content:center;
+  padding:1rem;backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-box{
+  background:#fff;border-radius:var(--radius);
+  padding:1.5rem;width:100%;max-width:340px;
+  box-shadow:0 8px 40px rgba(0,0,0,.35);
+  transform:translateY(20px);transition:transform .25s;
+}
+.modal-overlay.open .modal-box{transform:translateY(0);}
+.modal-title{font-size:1.1rem;font-weight:800;color:var(--red2);margin-bottom:1rem;}
+.modal-close{float:right;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--muted);margin-top:-.3rem;}
+.modal-btn{
+  width:100%;padding:.7rem;border:none;border-radius:8px;
+  background:var(--red);color:#fff;
+  font-family:'Baloo 2',cursive;font-size:1rem;font-weight:800;
+  cursor:pointer;margin-top:.8rem;transition:background .2s;
+}
+.modal-btn:hover{background:var(--red2);}
+
+
 /* ── FLOATING CART ── */
 .fab{
   position:fixed;bottom:1.5rem;right:1.2rem;
@@ -346,6 +415,12 @@ footer strong{color:var(--red2);}
     </div>
   </div>
 
+  <!-- ADMIN BAR -->
+  <div class="admin-bar" id="adminBar">
+    <span class="admin-bar-text" id="adminBarText">🔐 Admin? Product images upload karne ke liye login karein</span>
+    <button class="admin-login-btn" id="adminToggleBtn" onclick="toggleAdmin()">Admin Login</button>
+  </div>
+
   <!-- SEARCH + FILTER -->
   <div class="sec-title">🍪 Cremica Products</div>
   <div class="search-bar">
@@ -421,11 +496,121 @@ footer strong{color:var(--red2);}
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- ADMIN LOGIN MODAL -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeAdminModal()">✕</button>
+    <div class="modal-title">🔐 Admin Login</div>
+    <div class="field">
+      <label>Admin Password</label>
+      <input type="password" id="adminPassInput" placeholder="Password daalein..." onkeydown="if(event.key==='Enter')verifyAdmin()">
+    </div>
+    <button class="modal-btn" onclick="verifyAdmin()">🔓 Login Karein</button>
+  </div>
+</div>
+
+<!-- HIDDEN FILE INPUT FOR IMAGE UPLOAD -->
+<input type="file" id="imgFileInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
+
+
 <script>
 // ══════════════════════════════════════════════════
 // CONFIGURATION — Yahan apna WhatsApp number daalein
 // ══════════════════════════════════════════════════
 const WHATSAPP_NUMBER = '917631499444'; // ← APNA NUMBER DAALEIN (91 + 10-digit)
+const ADMIN_PASSWORD = 'tara@admin123'; // ← ADMIN PASSWORD (badal sakte hain)
+
+// ══════════════════════════════════════════════════
+// IMAGE STORAGE (localStorage se load hoga)
+// ══════════════════════════════════════════════════
+let productImages = {}; // { productId: 'base64DataURL' }
+let isAdminMode = false;
+let currentUploadProductId = null;
+
+function loadImages() {
+  try {
+    const saved = localStorage.getItem('tara_product_images');
+    if (saved) productImages = JSON.parse(saved);
+  } catch(e) { productImages = {}; }
+}
+
+function saveImages() {
+  try {
+    localStorage.setItem('tara_product_images', JSON.stringify(productImages));
+  } catch(e) {
+    showToast('❌ Image save nahi hui — storage full ho sakti hai', true);
+  }
+}
+
+// ══════════════════════════════════════════════════
+// ADMIN FUNCTIONS
+// ══════════════════════════════════════════════════
+function toggleAdmin() {
+  if (isAdminMode) {
+    // Logout
+    isAdminMode = false;
+    document.body.classList.remove('admin-mode');
+    document.getElementById('adminBar').classList.remove('active');
+    document.getElementById('adminBarText').textContent = '🔐 Admin? Product images upload karne ke liye login karein';
+    document.getElementById('adminToggleBtn').textContent = 'Admin Login';
+    showToast('✅ Admin logout ho gaye');
+  } else {
+    document.getElementById('adminModal').classList.add('open');
+    setTimeout(() => document.getElementById('adminPassInput').focus(), 100);
+  }
+}
+
+function closeAdminModal() {
+  document.getElementById('adminModal').classList.remove('open');
+  document.getElementById('adminPassInput').value = '';
+}
+
+function verifyAdmin() {
+  const pass = document.getElementById('adminPassInput').value;
+  if (pass === ADMIN_PASSWORD) {
+    isAdminMode = true;
+    document.body.classList.add('admin-mode');
+    document.getElementById('adminBar').classList.add('active');
+    document.getElementById('adminBarText').textContent = '✅ Admin Mode Active — Har product pe "📷 Image Badlein" button dikh raha hai';
+    document.getElementById('adminToggleBtn').textContent = 'Logout';
+    closeAdminModal();
+    renderProducts();
+    showToast('✅ Admin login successful!');
+  } else {
+    showToast('❌ Galat password!', true);
+    document.getElementById('adminPassInput').value = '';
+    document.getElementById('adminPassInput').focus();
+  }
+}
+
+function startImageUpload(productId) {
+  if (!isAdminMode) return;
+  currentUploadProductId = productId;
+  document.getElementById('imgFileInput').click();
+}
+
+function handleImageUpload(event) {
+  const file = event.target.files[0];
+  if (!file || !currentUploadProductId) return;
+
+  // File size check (max 500KB to fit in localStorage)
+  if (file.size > 800 * 1024) {
+    showToast('❌ Image 800KB se chhoti honi chahiye', true);
+    event.target.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    productImages[currentUploadProductId] = e.target.result;
+    saveImages();
+    renderProducts();
+    showToast('✅ Image upload ho gayi!');
+    event.target.value = '';
+    currentUploadProductId = null;
+  };
+  reader.readAsDataURL(file);
+}
 
 // ══════════════════════════════════════════════════
 // CREMICA PRODUCT CATALOG
@@ -459,8 +644,13 @@ let searchQuery = '';
 // INIT
 // ══════════════════════════════════════════════════
 function init() {
+  loadImages();
   buildFilterChips();
   renderProducts();
+  // Close modal on overlay click
+  document.getElementById('adminModal').addEventListener('click', function(e) {
+    if (e.target === this) closeAdminModal();
+  });
 }
 
 // ══════════════════════════════════════════════════
@@ -482,6 +672,11 @@ function setCategory(cat) {
 
 function filterProducts() {
   searchQuery = document.getElementById('searchInput').value.toLowerCase();
+  // Jab search ho to 'Sabhi' category select ho taaki sare products search me aayein
+  if (searchQuery) {
+    activeCategory = 'Sabhi';
+    buildFilterChips();
+  }
   renderProducts();
 }
 
@@ -511,8 +706,13 @@ function renderProducts() {
     return `
     <div class="product-card ${hasQty ? 'active' : ''}" id="card-${p.id}"
          style="animation-delay:${i * 0.04}s">
+      <div class="prod-img-wrap">
+        ${productImages[p.id]
+          ? `<img src="${productImages[p.id]}" alt="${p.name}" loading="lazy">`
+          : `<span class="prod-img-placeholder">${p.emoji}</span>`}
+        <button class="admin-upload-btn" onclick="startImageUpload('${p.id}')">📷 Image Badlein</button>
+      </div>
       <div class="prod-header">
-        <span class="prod-emoji">${p.emoji}</span>
         <div class="prod-info">
           <div class="prod-name">${p.name}</div>
           <div class="prod-sub">${p.sub}</div>
